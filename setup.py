@@ -39,7 +39,7 @@ classifiers = [
 ]
 
 setup(
-    name="custom_aioredis",
+    name="aioredis",
     version=read_version(),
     description="asyncio (PEP 3156) Redis support with additional async to sync proxy layer",
     long_description="\n\n".join((read("README.md"), read("CHANGELOG.md"))),
