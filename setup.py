@@ -52,7 +52,7 @@ setup(
     install_requires=[
         "async-timeout",
         "typing-extensions",
-        "git+git://github.com/Crash0v3rrid3/async_executor",
+        "async_executor@git+http://github.com/Crash0v3rrid3/async_executor",
     ],
     extras_require={
         "hiredis": 'hiredis>=1.0; implementation_name=="cpython"',
