@@ -4,13 +4,15 @@ import uuid
 from types import SimpleNamespace
 from typing import TYPE_CHECKING, Awaitable, NoReturn, Optional, Union
 
+from async_executor.proxy_impl import AsyncToSyncMixin
+
 from aioredis.exceptions import LockError, LockNotOwnedError
 
 if TYPE_CHECKING:
     from aioredis import Redis
 
 
-class Lock:
+class Lock(AsyncToSyncMixin):
     """
     A shared, distributed Lock. Using Redis for locking allows the Lock
     to be shared across processes and/or machines.

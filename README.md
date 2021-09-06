@@ -5,6 +5,9 @@ asyncio (3156) Redis client library.
 The library is intended to provide simple and clear interface to Redis
 based on asyncio.
 
+This repo is a fork with an update to work with the async executor here. This
+can be used in sync frameworks like django to take complete advantage of async concurrency.
+
 ## Features
 
 | Feature                      | Supported             |

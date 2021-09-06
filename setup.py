@@ -39,9 +39,9 @@ classifiers = [
 ]
 
 setup(
-    name="aioredis",
+    name="custom_aioredis",
     version=read_version(),
-    description="asyncio (PEP 3156) Redis support",
+    description="asyncio (PEP 3156) Redis support with additional async to sync proxy layer",
     long_description="\n\n".join((read("README.md"), read("CHANGELOG.md"))),
     long_description_content_type="text/markdown",
     classifiers=classifiers,
@@ -52,6 +52,7 @@ setup(
     install_requires=[
         "async-timeout",
         "typing-extensions",
+        "git+git://github.com/Crash0v3rrid3/async_executor",
     ],
     extras_require={
         "hiredis": 'hiredis>=1.0; implementation_name=="cpython"',

@@ -25,6 +25,8 @@ from typing import (
     Union,
 )
 
+from async_executor.proxy_impl import AsyncToSyncMixin
+
 from aioredis.compat import Protocol, TypedDict
 from aioredis.connection import (
     Connection,
@@ -627,7 +629,7 @@ ResponseCallbackT = Union[ResponseCallbackProtocol, AsyncResponseCallbackProtoco
 _R = TypeVar("_R")
 
 
-class Redis:
+class Redis(AsyncToSyncMixin):
     """
     Implementation of the Redis protocol.
 
@@ -3824,7 +3826,7 @@ class MonitorCommandInfo(TypedDict):
     command: str
 
 
-class Monitor:
+class Monitor(AsyncToSyncMixin):
     """
     Monitor is useful for handling the MONITOR command to the redis server.
     next_command() method returns one command from monitor
@@ -3897,7 +3899,7 @@ class Monitor:
             yield await self.next_command()
 
 
-class PubSub:
+class PubSub(AsyncToSyncMixin):
     """
     PubSub provides publish, subscribe and listen support to Redis channels.
 
@@ -4634,7 +4636,7 @@ class Pipeline(Redis):  # lgtm [py/init-calls-subclass]
         return self.watching and await self.execute_command("UNWATCH") or True
 
 
-class Script:
+class Script(AsyncToSyncMixin):
     """An executable Lua script object returned by ``register_script``"""
 
     def __init__(self, registered_client: Redis, script: ScriptTextT):

@@ -24,6 +24,7 @@ from typing import (
 from urllib.parse import ParseResult, parse_qs, unquote, urlparse
 
 import async_timeout
+from async_executor import AsyncToSyncMixin
 
 from .compat import Protocol, TypedDict
 from .exceptions import (
@@ -139,7 +140,7 @@ class Encoder:
 ExceptionMappingT = Mapping[str, Union[Type[Exception], Mapping[str, Type[Exception]]]]
 
 
-class BaseParser:
+class BaseParser(AsyncToSyncMixin):
     """Plain Python parsing class"""
 
     __slots__ = "_stream", "_buffer", "_read_size"
@@ -203,7 +204,7 @@ class BaseParser:
         raise NotImplementedError()
 
 
-class SocketBuffer:
+class SocketBuffer(AsyncToSyncMixin):
     """Async-friendly re-impl of redis-py's SocketBuffer.
 
     TODO: We're currently passing through two buffers,
@@ -532,7 +533,7 @@ class AsyncConnectCallbackProtocol(Protocol):
 ConnectCallbackT = Union[ConnectCallbackProtocol, AsyncConnectCallbackProtocol]
 
 
-class Connection:
+class Connection(AsyncToSyncMixin):
     """Manages TCP communication to and from a Redis server"""
 
     __slots__ = (
@@ -1186,7 +1187,7 @@ def parse_url(url: str) -> ConnectKwargs:
 _CP = TypeVar("_CP")
 
 
-class ConnectionPool:
+class ConnectionPool(AsyncToSyncMixin):
     """
     Create a connection pool. ``If max_connections`` is set, then this
     object raises :py:class:`~redis.ConnectionError` when the pool's

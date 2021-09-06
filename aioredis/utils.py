@@ -1,5 +1,7 @@
 from typing import TYPE_CHECKING
 
+from async_executor.proxy_impl import AsyncToSyncMixin
+
 if TYPE_CHECKING:
     from aioredis import Redis
     from aioredis.client import Pipeline
@@ -25,7 +27,7 @@ def from_url(url, **kwargs):
     return Redis.from_url(url, **kwargs)
 
 
-class pipeline:
+class pipeline(AsyncToSyncMixin):
     def __init__(self, redis_obj: "Redis"):
         self.p: "Pipeline" = redis_obj.pipeline()
 
